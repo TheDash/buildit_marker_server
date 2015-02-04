@@ -3,6 +3,8 @@ project(buildit_marker_server)
 
 find_package(catkin REQUIRED COMPONENTS buildit_msgs visualization_msgs buildit_ros)
 
+include_directories(include ${catkin_INCLUDE_DIRS})
+
 catkin_package(
 )
 
@@ -10,7 +12,7 @@ catkin_package(
 # add_executable(buildit_marker_server_node src/buildit_marker_server_node.cpp)
 add_executable(buildit_marker_server src/buildit_marker_server.cpp)
 target_link_libraries(buildit_marker_server ${catkin_LIBRARIES} yaml-cpp)
-add_dependencies(buildit_marker_server buildit_msgs_generate_messages_cpp) 
+add_dependencies(buildit_marker_server buildit_msgs_generate_messages_cpp buildit_msgs_gencpp ${catkin_EXPORTED_TARGETS}) 
 
 install(TARGETS buildit_marker_server 
 ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
