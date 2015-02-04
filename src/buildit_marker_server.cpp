@@ -1,6 +1,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <vector>
+#include <algorithm>
+#include <sstream>
+#include <map>
+#include <iostream>
+#include <string>
+#include <sstream>
 
 #include <ros/ros.h>
 #include <tf/tf.h>
@@ -11,22 +18,14 @@
 #include <visualization_msgs/InteractiveMarkerControl.h>
 #include <visualization_msgs/InteractiveMarker.h>
 #include <visualization_msgs/InteractiveMarkerFeedback.h>
+ 
+#include <buildit_msgs/UpdateInteractiveMountPoint.h>
+#include <buildit_msgs/InteractiveMountPoint.h>
+#include <buildit_msgs/SetOrientation.h>
+#include <buildit_msgs/SetPosition.h>
+#include <buildit_msgs/GetInteractiveMarkers.h>
+#include <buildit_msgs/MountPointMarker.h>
 
-#include <buildit_ros/UpdateInteractiveMountPoint.h>
-#include <buildit_ros/InteractiveMountPoint.h>
-#include <buildit_ros/SetOrientation.h>
-#include <buildit_ros/SetPosition.h>
-
-#include <vector>
-#include <algorithm>
-#include <sstream>
-#include <map>
-#include <iostream>
-#include <string>
-#include <sstream>
-
-#include <buildit_ros/GetInteractiveMarkers.h>
-#include <buildit_ros/MountPointMarker.h>
 #include <buildit_ros/buildit_config.h>
 
 #define SSTR( x ) dynamic_cast< std::ostringstream & >( \
@@ -613,11 +612,11 @@ bool spawn_mount_point_marker(buildit_ros::InteractiveMountPoint::Request &req, 
 int main(int argc, char** argv)
 {
 
-   ros::init(argc, argv, "interactive_mount_points_server");
+   ros::init(argc, argv, "buildit_marker_server");
    ros::NodeHandle n;
    ros::Timer frame_timer = n.createTimer(ros::Duration(0.01), frameCallback);
 
-   server.reset( new interactive_markers::InteractiveMarkerServer("interactive_mount_points_server","",false) );
+   server.reset( new interactive_markers::InteractiveMarkerServer("buildit_marker_server","",false) );
 
    menu_handler.insert( "Attach", &processFeedback );
    menu_handler.insert( "Unattach", &processFeedback );
