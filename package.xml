@@ -13,14 +13,13 @@
   <author email="dash@clearpathrobotics.com">Devon Ash</maintainer>
 
 
-    <!-- Use buildtool_depend for build tool packages: -->
-  <!--   <buildtool_depend>catkin</buildtool_depend> -->
-  <!-- Use run_depend for packages you need at runtime: -->
-  <!--   <run_depend>message_runtime</run_depend> -->
-  <!-- Use test_depend for packages you need only for testing: -->
-  <!--   <test_depend>gtest</test_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
 
+  <build_depend>buildit_msgs</build_depend>
+  <build_depend>buildit_ros</build_depend>
+
+  <run_depend>buildit_msgs<run_depend>
+  <run_depend>buildit_ros</run_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   
