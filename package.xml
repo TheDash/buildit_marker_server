@@ -3,33 +3,25 @@
   <name>buildit_marker_server</name>
   <version>1.0.0</version>
   <description>The buildit_marker_server package</description>
-
  
   <maintainer email="dash@clearpathrobotics.com">Devon Ash</maintainer>
-
-
   <license>GPL</license>
-
   <author email="dash@clearpathrobotics.com">Devon Ash</author>
-
 
   <buildtool_depend>catkin</buildtool_depend>
 
   <build_depend>buildit_msgs</build_depend>
   <build_depend>buildit_ros</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+  <build_depend>visualization_marker_tutorials</build_depend>
+  <build_depend>moveit_ros_visualization</build_depend>
+  <build_depend>roscpp</build_depend>
 
+  <run_depend>roscpp</run_depend>
+  <run_depend>moveit_ros_visualization</run_depend>
+  <run_depend>visualization_marker_tutorials</run_depend>
   <run_depend>buildit_msgs</run_depend>
   <run_depend>buildit_ros</run_depend>
-
-  <build_depend>visualization_msgs</build_depend>
   <run_depend>visualization_msgs</run_depend>
 
-  <!-- The export tag contains other, unspecified, tags -->
-  
-    <!-- You can specify that this package is a metapackage here: -->
-    <!-- <metapackage/> -->
-
-    <!-- Other tools can request additional information be placed here -->
-
-  
 </package>

@@ -9,8 +9,6 @@ catkin_package(
 
 )
 
-## Declare a cpp executable
-# add_executable(buildit_marker_server_node src/buildit_marker_server_node.cpp)
 add_executable(buildit_marker_server src/buildit_marker_server.cpp)
 target_link_libraries(buildit_marker_server ${catkin_LIBRARIES} yaml-cpp ${QT_LIBRARIES})
 add_dependencies(buildit_marker_server buildit_msgs_generate_messages_cpp buildit_msgs_gencpp ${catkin_EXPORTED_TARGETS} ${buildit_ui_EXPORTED_TARGETS} buildit_ui_gencpp) 
