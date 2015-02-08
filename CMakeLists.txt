@@ -5,9 +5,16 @@ find_package(catkin REQUIRED COMPONENTS buildit_msgs visualization_marker_tutori
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 
+
+
+
 catkin_package(
 
 )
+
+find_package(Qt4 COMPONENTS QtCore QtGui QtWebKit QtOpenGL QtUiTools REQUIRED)
+include(${QT_USE_FILE})
+add_definitions(-DQT_NO_KEYWORDS)
 
 add_executable(buildit_marker_server src/buildit_marker_server.cpp)
 target_link_libraries(buildit_marker_server ${catkin_LIBRARIES} yaml-cpp ${QT_LIBRARIES})
