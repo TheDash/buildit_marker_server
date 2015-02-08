@@ -26,7 +26,7 @@
 #include <buildit_msgs/GetInteractiveMarkers.h>
 #include <buildit_msgs/MountPointMarker.h>
 
-#include <buildit_ros/buildit_config.h>
+#include <buildit_ui/buildit_config.h>
 
 #define SSTR( x ) dynamic_cast< std::ostringstream & >( \
         ( std::ostringstream() << std::dec << x ) ).str()
@@ -68,14 +68,14 @@ void set_marker_orientation(const InteractiveMarkerFeedbackConstPtr & feedback);
 
 void set_marker_position(const InteractiveMarkerFeedbackConstPtr & feedback);
 
-bool get_all_markers(buildit_ros::GetInteractiveMarkers::Request &req, buildit_ros::GetInteractiveMarkers::Response &res);
+bool get_all_markers(buildit_msgs::GetInteractiveMarkers::Request &req, buildit_msgs::GetInteractiveMarkers::Response &res);
 
-bool update_mount_point_marker(buildit_ros::UpdateInteractiveMountPoint::Request &req, buildit_ros::UpdateInteractiveMountPoint::Response &res);
+bool update_mount_point_marker(buildit_msgs::UpdateInteractiveMountPoint::Request &req, buildit_msgs::UpdateInteractiveMountPoint::Response &res);
 
-bool clear_all_markers(buildit_ros::InteractiveMountPoint::Request &req, buildit_ros::InteractiveMountPoint::Response &res);
+bool clear_all_markers(buildit_msgs::InteractiveMountPoint::Request &req, buildit_msgs::InteractiveMountPoint::Response &res);
 
 
-bool load_mount_point_marker(buildit_ros::InteractiveMountPoint::Request &req, buildit_ros::InteractiveMountPoint::Response &res);
+bool load_mount_point_marker(buildit_msgs::InteractiveMountPoint::Request &req, buildit_msgs::InteractiveMountPoint::Response &res);
 
 std::map<std::string, geometry_msgs::Vector3> parent_positions;
 std::map<std::string, MountPointMarker> mount_point_markers;
@@ -233,9 +233,9 @@ void unattach_marker_to_model(const InteractiveMarkerFeedbackConstPtr & feedback
 void set_marker_orientation(const InteractiveMarkerFeedbackConstPtr & feedback)
 {
    ros::NodeHandle n;
-   ros::ServiceClient client = n.serviceClient<buildit_ros::SetOrientation>("set_marker_orientation_editor");
+   ros::ServiceClient client = n.serviceClient<buildit_msgs::SetOrientation>("set_marker_orientation_editor");
 
-   buildit_ros::SetOrientation or_msg;
+   buildit_msgs::SetOrientation or_msg;
    or_msg.request.marker_info = *feedback.get();
    if (client.call(or_msg))
    {
@@ -250,9 +250,9 @@ void set_marker_orientation(const InteractiveMarkerFeedbackConstPtr & feedback)
 void set_marker_position(const InteractiveMarkerFeedbackConstPtr & feedback)
 {
      ros::NodeHandle n;
-   ros::ServiceClient client = n.serviceClient<buildit_ros::SetPosition>("set_marker_position_editor");
+   ros::ServiceClient client = n.serviceClient<buildit_msgs::SetPosition>("set_marker_position_editor");
 
-   buildit_ros::SetPosition pos_msg;
+   buildit_msgs::SetPosition pos_msg;
    pos_msg.request.marker_info = *feedback.get();
    if (client.call(pos_msg))
    {
@@ -462,14 +462,14 @@ void make6DofMarkerWithName(std::string& name, std::string& parent_name, bool fi
 
 std::vector<std::string> marker_list;
 
-bool get_all_markers(buildit_ros::GetInteractiveMarkers::Request &req, buildit_ros::GetInteractiveMarkers::Response &res)
+bool get_all_markers(buildit_msgs::GetInteractiveMarkers::Request &req, buildit_msgs::GetInteractiveMarkers::Response &res)
 {
 
    // Iterate the markers map
      typedef std::map<std::string, MountPointMarker>::iterator it_type;
      for (it_type iterator = mount_point_markers.begin(); iterator != mount_point_markers.end(); ++iterator)
      { 
-          buildit_ros::MountPointMarker m;
+          buildit_msgs::MountPointMarker m;
           MountPointMarker marker;
           marker = iterator->second;
           ROS_INFO("Sending marker %s", marker.marker_name.c_str());
@@ -483,7 +483,7 @@ bool get_all_markers(buildit_ros::GetInteractiveMarkers::Request &req, buildit_r
 }
 
 
-bool update_mount_point_marker(buildit_ros::UpdateInteractiveMountPoint::Request &req, buildit_ros::UpdateInteractiveMountPoint::Response &res)
+bool update_mount_point_marker(buildit_msgs::UpdateInteractiveMountPoint::Request &req, buildit_msgs::UpdateInteractiveMountPoint::Response &res)
 {
    // ok ... so the new position needs to be relative to the parent position. so new_pose is specified relative to the parent. How to pass in that vector to set pose? Well, i'd need to specify it as a link on the model. 
    geometry_msgs::Vector3 parent_pos = parent_positions[req.marker_name];
@@ -506,7 +506,7 @@ bool update_mount_point_marker(buildit_ros::UpdateInteractiveMountPoint::Request
    return true;
 }
 
-bool clear_all_markers(buildit_ros::InteractiveMountPoint::Request &req, buildit_ros::InteractiveMountPoint::Response &res)
+bool clear_all_markers(buildit_msgs::InteractiveMountPoint::Request &req, buildit_msgs::InteractiveMountPoint::Response &res)
 {
     marker_names.clear();
     MountPointMarker::number_of_markers = 0;
@@ -516,7 +516,7 @@ bool clear_all_markers(buildit_ros::InteractiveMountPoint::Request &req, buildit
     return true;
 }
 
-bool load_mount_point_marker(buildit_ros::InteractiveMountPoint::Request &req, buildit_ros::InteractiveMountPoint::Response &res)
+bool load_mount_point_marker(buildit_msgs::InteractiveMountPoint::Request &req, buildit_msgs::InteractiveMountPoint::Response &res)
 {
 
    MountPointMarker marker;
@@ -553,7 +553,7 @@ bool load_mount_point_marker(buildit_ros::InteractiveMountPoint::Request &req, b
 std::map<std::string, int> marker_counts;
 
 // The server will have to spawn markers at the locations told, and be passed messages. 
-bool spawn_mount_point_marker(buildit_ros::InteractiveMountPoint::Request &req, buildit_ros::InteractiveMountPoint::Response &res)
+bool spawn_mount_point_marker(buildit_msgs::InteractiveMountPoint::Request &req, buildit_msgs::InteractiveMountPoint::Response &res)
 {
    // Create a mount point marker object.
    MountPointMarker marker;
