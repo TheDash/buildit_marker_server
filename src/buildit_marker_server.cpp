@@ -26,7 +26,7 @@
 #include <buildit_msgs/GetInteractiveMarkers.h>
 #include <buildit_msgs/MountPointMarker.h>
 
-#include <buildit_ui/buildit_config.h>
+#include <buildit_ui/objects/buildit_config.h>
 
 #define SSTR( x ) dynamic_cast< std::ostringstream & >( \
         ( std::ostringstream() << std::dec << x ) ).str()
